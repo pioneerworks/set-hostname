@@ -6,3 +6,7 @@ description       'Get thyself a hostname'
 version           '0.2.0'
 
 gem 'ipaddr_extensions'
+
+supports 'ubuntu'
+supports 'smartos'
+supports 'centos'
