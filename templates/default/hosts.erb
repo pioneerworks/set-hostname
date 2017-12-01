@@ -6,5 +6,5 @@
 #
 127.0.0.1	localhost
 <%- if node['set_hostname']['name'] && node['set_hostname']['ip'] -%>
-<%=   node['set_hostname']['ip'] %> <%= node['set_hostname']['name'] %> <%= node['set_hostname']['name'].split('.').first rescue '' %>
+<%=   node['set_hostname']['ip'] %> <%= node['set_hostname']['name'] %> <%= node['set_hostname']['name'].split('.').first rescue '' %> <%= node['set_hostname']['name'].split('.').find { |part| part =~ /.*\d+$/ } %>
 <%- end -%>
