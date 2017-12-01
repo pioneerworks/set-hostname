@@ -1,11 +1,10 @@
 # Dropped off by Chef for Node: <%= node.name %>
 # Any manual changes will be lost.
 #
-#   node.set_name.name: <%= node.set_name.name %>
-#   node.set_name.ip  : <%= node.set_name.ip %>
+#   node['set_hostname']['name']: <%= node['set_hostname']['name'] %>
+#   node['set_hostname']['ip']  : <%= node['set_hostname']['ip'] %>
 #
 127.0.0.1	localhost
-
-<% if node.set_hostname.name && node.set_hostname.ip %>
-<%= node.set_hostname.ip %> <%= node.set_hostname.name %> <%= node.set_hostname.name.split('.').first rescue '' %>
-<% end %>
+<%- if node['set_hostname']['name'] && node['set_hostname']['ip'] -%>
+<%=   node['set_hostname']['ip'] %> <%= node['set_hostname']['name'] %> <%= node['set_hostname']['name'].split('.').first rescue '' %>
+<%- end -%>

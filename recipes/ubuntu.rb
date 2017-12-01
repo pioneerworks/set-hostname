@@ -1,5 +1,6 @@
 execute 'set hostname to node name' do
-  command "hostname #{node.set_hostname.name}"
+  command "hostname #{node['set_hostname']['name']}"
+  only_if node['set_hostname']['name']
 end
 
 template '/etc/hosts' do
