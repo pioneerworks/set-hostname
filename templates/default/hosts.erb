@@ -4,7 +4,21 @@
 #   node['set_hostname']['name']: <%= node['set_hostname']['name'] %>
 #   node['set_hostname']['ip']  : <%= node['set_hostname']['ip'] %>
 #
-127.0.0.1	localhost
+127.0.0.1  localhost
+
 <%- if node['set_hostname']['name'] && node['set_hostname']['ip'] -%>
-<%=   node['set_hostname']['ip'] %> <%= node['set_hostname']['name'] %> <%= node['set_hostname']['name'].split('.').first rescue '' %> <%= node['set_hostname']['name'].split('.').find { |part| part =~ /.*\d+$/ } %>
+    <%-
+      names = [node['set_hostname']['name']]
+      if node['set_hostname']['name'] =~ /[.-]/
+        names << node['set_hostname']['name'].split('.').first
+        names << node['set_hostname']['name'].split(/[.-]/).find { |part| part =~ /.*\d{3}$/ }
+      end
+
+      if node['set_hostname']['domain']
+        full_names = names.compact.map { |h| "#{h}.#{node['set_hostname']['domain']}" }
+        names << full_names
+        names.flatten!
+      end
+    -%>
+<%= node['set_hostname']['ip'] %> <%= names.compact.sort.uniq.join(' ') %>
 <%- end -%>
